@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 
 const Layout = () => {
   return (
-    <Stack>
+    <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="find-ride" options={{ headerShown: false }} />
       <Stack.Screen

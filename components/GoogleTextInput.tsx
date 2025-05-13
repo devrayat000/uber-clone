@@ -5,6 +5,7 @@ import { icons } from "@/constants";
 import { GoogleInputProps } from "@/types/type";
 
 const googlePlacesApiKey = process.env.EXPO_PUBLIC_PLACES_API_KEY;
+console.log("Google Places API Key: ", googlePlacesApiKey);
 
 const GoogleTextInput = ({
   icon,
@@ -18,8 +19,10 @@ const GoogleTextInput = ({
       className={`flex flex-row items-center justify-center relative z-50 rounded-xl ${containerStyle}`}
     >
       <GooglePlacesAutocomplete
-        fetchDetails={true}
+        isNewPlacesAPI={true}
         placeholder="Search"
+        fetchDetails={true}
+        predefinedPlaces={[]}
         debounce={200}
         styles={{
           textInputContainer: {

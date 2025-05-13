@@ -6,21 +6,28 @@ import { icons } from "@/constants";
 const TabIcon = ({
   source,
   focused,
+  size,
 }: {
   source: ImageSourcePropType;
   focused: boolean;
+  size: number;
 }) => (
-  <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
-  >
+  <View className={`rounded-full`}>
     <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      className={`rounded-full overflow-hidden items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      style={{
+        width: (size * 6) / 3,
+        height: (size * 6) / 3,
+      }}
     >
       <Image
         source={source}
         tintColor="white"
         resizeMode="contain"
-        className="w-7 h-7"
+        style={{
+          width: size,
+          height: size,
+        }}
       />
     </View>
   </View>
@@ -29,7 +36,7 @@ const TabIcon = ({
 export default function Layout() {
   return (
     <Tabs
-      initialRouteName="index"
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
@@ -37,16 +44,17 @@ export default function Layout() {
         tabBarStyle: {
           backgroundColor: "#333333",
           borderRadius: 50,
-          paddingBottom: 0, // ios only
+          paddingHorizontal: 0, // ios only
           overflow: "hidden",
           marginHorizontal: 20,
           marginBottom: 20,
           height: 78,
+        },
+        tabBarItemStyle: { flex: 1 },
+        tabBarIconStyle: {
+          flex: 1,
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
-          flexDirection: "row",
-          position: "absolute",
         },
       }}
     >
@@ -55,8 +63,8 @@ export default function Layout() {
         options={{
           title: "Home",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.home} focused={focused} />
+          tabBarIcon: ({ focused, size }) => (
+            <TabIcon source={icons.home} focused={focused} size={size} />
           ),
         }}
       />
@@ -65,8 +73,8 @@ export default function Layout() {
         options={{
           title: "Rides",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.list} focused={focused} />
+          tabBarIcon: ({ focused, size }) => (
+            <TabIcon source={icons.list} focused={focused} size={size} />
           ),
         }}
       />
@@ -75,8 +83,8 @@ export default function Layout() {
         options={{
           title: "Chat",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.chat} focused={focused} />
+          tabBarIcon: ({ focused, size }) => (
+            <TabIcon source={icons.chat} focused={focused} size={size} />
           ),
         }}
       />
@@ -85,8 +93,8 @@ export default function Layout() {
         options={{
           title: "Profile",
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.profile} focused={focused} />
+          tabBarIcon: ({ focused, size }) => (
+            <TabIcon source={icons.profile} focused={focused} size={size} />
           ),
         }}
       />

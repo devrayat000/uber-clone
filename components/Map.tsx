@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
-import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
+import { ActivityIndicator, Platform, Text, View } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import { cssInterop, remapProps } from "nativewind";
 
 import { icons } from "@/constants";
 import { useFetch } from "@/lib/fetch";
@@ -12,6 +13,10 @@ import {
 } from "@/lib/map";
 import { useDriverStore, useLocationStore } from "@/store";
 import { Driver, MarkerData } from "@/types/type";
+
+remapProps(MapView, {
+  className: "style",
+});
 
 const directionsAPI = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY;
 
@@ -24,7 +29,7 @@ const Map = () => {
   } = useLocationStore();
   const { selectedDriver, setDrivers } = useDriverStore();
 
-  const { data: drivers, loading, error } = useFetch<Driver[]>("/(api)/driver");
+  const { data: drivers, loading, error } = useFetch<Driver[]>("/driver");
   const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   useEffect(() => {
@@ -80,12 +85,20 @@ const Map = () => {
       </View>
     );
 
+  console.log(region);
+
   return (
     <MapView
-      provider={PROVIDER_DEFAULT}
+      provider={PROVIDER_GOOGLE}
       className="w-full h-full rounded-2xl"
       tintColor="black"
-      mapType="mutedStandard"
+      mapType={Platform.OS === "ios" ? "mutedStandard" : "standard"}
+      style={{
+        width: "100%",
+        height: "100%",
+        borderRadius: 16,
+        overflow: "hidden",
+      }}
       showsPointsOfInterest={false}
       initialRegion={region}
       showsUserLocation={true}

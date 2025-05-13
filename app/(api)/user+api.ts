@@ -1,14 +1,15 @@
-import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 
 export async function POST(request: Request) {
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
+    console.log("Hitting the POST endpoint");
+    const sql = postgres(`${process.env.DATABASE_URL}`);
     const { name, email, clerkId } = await request.json();
 
     if (!name || !email || !clerkId) {
       return Response.json(
         { error: "Missing required fields" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

@@ -50,8 +50,10 @@ const SignUp = () => {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
+      console.log(completeSignUp);
+
       if (completeSignUp.status === "complete") {
-        await fetchAPI("/(api)/user", {
+        await fetchAPI("http://localhost:8081/user", {
           method: "POST",
           body: JSON.stringify({
             name: form.name,
@@ -74,6 +76,7 @@ const SignUp = () => {
     } catch (err: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
+      console.log(err);
       setVerification({
         ...verification,
         error: err.errors[0].longMessage,
@@ -81,6 +84,8 @@ const SignUp = () => {
       });
     }
   };
+  console.log(verification);
+
   return (
     <ScrollView className="flex-1 bg-white">
       <View className="flex-1 bg-white">
@@ -113,6 +118,7 @@ const SignUp = () => {
             secureTextEntry={true}
             textContentType="password"
             value={form.password}
+            style={{ color: "black" }}
             onChangeText={(value) => setForm({ ...form, password: value })}
           />
           <CustomButton

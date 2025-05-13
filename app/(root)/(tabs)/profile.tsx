@@ -45,10 +45,8 @@ const Profile = () => {
 
             <InputField
               label="Email"
-              placeholder={
-                user?.primaryEmailAddress?.emailAddress || "Not Found"
-              }
               containerStyle="w-full"
+              value={user?.primaryEmailAddress?.emailAddress}
               inputStyle="p-3.5"
               editable={false}
             />
