@@ -10,7 +10,6 @@ import "react-native-reanimated";
 import { LogBox } from "react-native";
 
 import { tokenCache } from "@/lib/auth";
-import { ShakeEventExpo } from "@/lib/shake";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -41,16 +40,6 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
-
-  useEffect(() => {
-    ShakeEventExpo.addListener(() => {
-      alert("Shake detected!");
-    }, 7);
-
-    return () => {
-      ShakeEventExpo.removeListener();
-    };
-  }, []);
 
   if (!loaded) {
     return null;
