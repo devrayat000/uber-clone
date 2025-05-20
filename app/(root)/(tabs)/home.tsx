@@ -103,8 +103,8 @@ const Home = () => {
         )}
         ListHeaderComponent={
           <>
-            <View className="flex flex-row items-center justify-between my-5">
-              <Text className="text-2xl font-JakartaExtraBold">
+            <View className="flex flex-row flex-nowrap items-center justify-between my-5">
+              <Text className="text-2xl font-JakartaExtraBold flex-1">
                 Welcome{" "}
                 {user?.firstName ?? user?.primaryEmailAddress?.emailAddress}👋
               </Text>
